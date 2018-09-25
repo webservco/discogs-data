@@ -1,8 +1,7 @@
 <?php
-
 namespace WebServCo\DiscogsData\Exceptions;
 
-final class ParserException extends \Exception
+class DiscogsDataException extends \Exception
 {
     public function __construct($message, $code = 0, \Exception $previous = null)
     {
