@@ -10,7 +10,7 @@ composer install
 
 ## Run examples
 ```
-php public/parserExample.php
+php public/processReleasesExample.php
 ```
 
 ### TODO
