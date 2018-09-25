@@ -1,7 +1,7 @@
 # webservco/discogs-data
 Utilities for working with the Discogs monthly data dumps (parse, process, import).
 
-## Install
+## Development install
 ```
 git clone git@github.com:webservco/discogs-data.git
 cd discogs-data-parser
