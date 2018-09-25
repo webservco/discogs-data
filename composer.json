@@ -1,0 +1,33 @@
+{
+    "name" : "webservco/discogs-data",
+    "type" : "library",
+    "description" : "Utilities for working with the Discogs monthly data dumps (parse, process, import).",
+    "keywords" : [
+        "webservco",
+        "discogs-data"
+    ],
+    "homepage" : "https://github.com/webservco/discogs-data",
+    "require": {
+        "php" : "^7.1",
+        "webservco/framework" : "@dev"
+    },
+    "require-dev" : {
+        "webservco/framework" : "@dev"
+    },
+    "suggest" : {
+        "pds/skeleton" : "A standard filesystem skeleton suitable for all PHP packages.",
+        "squizlabs/php_codesniffer" : "Detects violations of a defined set of coding standards.",
+        "phpstan/phpstan" : "PHP Static Analysis Tool, when using PHP 7.x"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "WebServCo\\" : "src/WebServCo/"
+        }
+    },
+    "scripts" : {
+        "check:structure" : "pds-skeleton validate .",
+        "check" : "phpcs --standard=PSR2 --extensions=php src",
+        "s:7": "phpstan analyse src --level=7 --ansi -c phpstan.neon",
+        "all": "clear && composer s:7 && composer check"
+    }
+}
