@@ -1,7 +1,8 @@
 <?php
 namespace WebServCo\DiscogsData;
 
-final class ReleasesProcessor extends AbstractProcessor implements \WebServCo\DiscogsData\Interfaces\ProcessorInterface
+final class ReleasesProcessor extends AbstractDataProcessor implements
+    \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
     public function processItem($xmlData)
     {
