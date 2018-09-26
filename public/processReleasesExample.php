@@ -11,8 +11,9 @@ try {
     );
     $releaseProcessor = new \WebServCo\DiscogsData\ReleasesProcessor();
     $xmlParser = new \WebServCo\DiscogsData\XmlParser(
-        $xmlPath,
-        $releaseProcessor
+        $releaseProcessor,
+        $logger,
+        $xmlPath
     );
     $xmlParser->run();
 } catch (\WebServCo\DiscogsData\Exceptions\XmlParserException $e) {
