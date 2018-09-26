@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\DiscogsData;
 
-abstract class AbstractProcessor
+abstract class AbstractDataProcessor
 {
-    
+
 }

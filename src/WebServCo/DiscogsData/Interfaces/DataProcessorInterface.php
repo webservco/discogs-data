@@ -1,7 +1,7 @@
 <?php
 namespace WebServCo\DiscogsData\Interfaces;
 
-interface ProcessorInterface
+interface DataProcessorInterface
 {
     public function processItem($xmlData);
 }
