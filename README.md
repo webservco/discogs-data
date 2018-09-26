@@ -15,4 +15,5 @@ php public/processReleasesExample.php
 
 ### TODO
 - handle checksum;
-- function to count how many releases in the data dump;
+- add functionality to count how many releases in the data dump;
+- add functionality to process only some items (start/end index);
