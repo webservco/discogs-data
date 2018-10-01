@@ -1,5 +1,6 @@
 # webservco/discogs-data
 Utilities for working with the Discogs monthly data dumps (parse, process, import).
+> Require the compressed data dump files (xml.gz)
 
 ## Development install
 ```
