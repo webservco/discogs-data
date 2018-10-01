@@ -11,7 +11,8 @@ composer install
 
 ## Run examples
 ```
-php public/processReleasesExample.php
+php public/releasesExample.php count
+php public/releasesExample.php process
 ```
 
 ### TODO
