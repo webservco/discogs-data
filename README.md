@@ -16,6 +16,4 @@ php public/releasesExample.php process
 ```
 
 ### TODO
-- handle checksum;
-- add functionality to count how many releases in the data dump;
-- add functionality to process only some items (start/end index);
+- (?) add functionality to process only some items (start/end index);
