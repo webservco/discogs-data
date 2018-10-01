@@ -9,9 +9,9 @@ try {
         __DIR__ . '/../var/log/',
         \WebServCo\Framework\Framework::library('Request')
     );
-    $releaseProcessor = new \WebServCo\DiscogsData\ReleasesProcessor();
+    $releasesProcessor = new \WebServCo\DiscogsData\ReleasesProcessor();
     $dataParser = new \WebServCo\DiscogsData\DataParser(
-        $releaseProcessor,
+        $releasesProcessor,
         $logger,
         $filePath
     );
