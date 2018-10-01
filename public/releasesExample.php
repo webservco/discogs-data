@@ -1,17 +1,27 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
+$exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: 'count';
+
 try {
-    //$xmlPath = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: null;
     $filePath = __DIR__ . '/../var/data/discogs_20180901_releases.xml.gz';
     $logger = new \WebServCo\Framework\FileLogger(
         'discogs-data',
         __DIR__ . '/../var/log/',
         \WebServCo\Framework\Framework::library('Request')
     );
-    $releasesProcessor = new \WebServCo\DiscogsData\ReleasesProcessor();
+    switch ($exampleType) {
+        case 'process':
+            $dataProcessor = new \WebServCo\DiscogsData\ReleasesProcessor();
+            break;
+        case 'count':
+        default:
+            $dataProcessor = new \WebServCo\DiscogsData\ReleasesCounter();
+            break;
+    }
+
     $dataParser = new \WebServCo\DiscogsData\DataParser(
-        $releasesProcessor,
+        $dataProcessor,
         $logger,
         $filePath
     );
