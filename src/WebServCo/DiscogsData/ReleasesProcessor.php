@@ -4,14 +4,13 @@ namespace WebServCo\DiscogsData;
 final class ReleasesProcessor extends AbstractDataProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
-    protected $progressBar;
+    protected $progressLine;
 
     public function __construct()
     {
         parent::__construct();
-        $this->progressBar = new \WebServCo\Framework\ProgressBar(20); //size
-        $this->progressBar->setType('single_line'); //single_line, multi_line
-        $this->progressBar->start(100000); // pb start
+        //$this->progressLine = new \WebServCo\Framework\ProgressLine();
+        //$this->progressLine->setShowResult(false);
     }
 
     public function getDataType()
@@ -21,25 +20,23 @@ final class ReleasesProcessor extends AbstractDataProcessor implements
 
     public function start()
     {
-        echo __METHOD__ . PHP_EOL;
+        echo __CLASS__ . PHP_EOL;
     }
 
     public function processItem($data)
     {
         ++ $this->totalItems;
 
-        $this->progressBar->advanceTo($this->totalItems); // pb advance
-        echo $this->progressBar->prefix(sprintf('Processing %s/%s', $this->totalItems, 100000));
-
+        /*
+        $this->progressLine->advanceTo($this->totalItems); // pb advance
         $outputCheck = $this->totalItems%100;
+        if (empty($outputCheck)) {
+            echo $this->progressLine->prefix(sprintf('Processing %s', $this->totalItems));
+        }
+        echo $this->progressLine->suffix(); // pb suffix
+        */
 
-        //if (empty($outputCheck)) {
-            //echo sprintf('%s%s', $this->totalItems, PHP_EOL);
-        //}
-        $result = true;
-        echo $this->progressBar->suffix($result); // pb suffix
-
-        /* *
+        /* */
         var_dump($data->getAttribute('id')); //XXX
         var_dump($data->getAttribute('status')); //XXX
         //var_dump($data); //XXX
@@ -50,6 +47,7 @@ final class ReleasesProcessor extends AbstractDataProcessor implements
 
     public function finish()
     {
-        echo PHP_EOL;
+        //echo $this->progressLine->finish();
+        echo sprintf('Total items: %s%s', $this->totalItems, PHP_EOL);
     }
 }
