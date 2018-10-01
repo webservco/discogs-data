@@ -16,7 +16,6 @@ try {
         $filePath
     );
     $dataParser->run();
-} catch (\WebServCo\DiscogsData\Exceptions\XmlParserException $e) {
-    echo $e->getMessage();
-    echo PHP_EOL;
+} catch (\WebServCo\DiscogsData\Exceptions\DataParserException $e) {
+    echo sprintf('Error: %s%s', $e->getMessage(), PHP_EOL);
 }
