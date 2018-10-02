@@ -3,9 +3,10 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: 'count';
 
+$filePath = __DIR__ . '/../var/data/discogs_20180901_releases.xml.gz';
 $outputLogger = new \WebServCo\Framework\OutputLogger();
+
 try {
-    $filePath = __DIR__ . '/../var/data/discogs_20180901_releases.xml.gz';
     /*
     $fileLogger = new \WebServCo\Framework\FileLogger(
         'discogs-data',
@@ -13,7 +14,6 @@ try {
         \WebServCo\Framework\Framework::library('Request')
     );
     */
-
     switch ($exampleType) {
         case 'process':
             $dataProcessor = new \WebServCo\DiscogsData\ReleasesProcessor($outputLogger);
