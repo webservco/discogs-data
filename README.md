@@ -11,9 +11,10 @@ composer install
 
 ## Run examples
 ```
-php public/releasesExample.php count
-php public/releasesExample.php process
+php examples/releases.php count
+php examples/releases.php process
 ```
 
 ### TODO
 - (?) add functionality to process only some items (start/end index);
+- add processing time info;
