@@ -6,11 +6,13 @@ $exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: 'count';
 $outputLogger = new \WebServCo\Framework\OutputLogger();
 try {
     $filePath = __DIR__ . '/../var/data/discogs_20180901_releases.xml.gz';
+    /*
     $fileLogger = new \WebServCo\Framework\FileLogger(
         'discogs-data',
         __DIR__ . '/../var/log/',
         \WebServCo\Framework\Framework::library('Request')
     );
+    */
 
     switch ($exampleType) {
         case 'process':
@@ -24,7 +26,7 @@ try {
 
     $dataParser = new \WebServCo\DiscogsData\DataParser(
         $dataProcessor,
-        $fileLogger,
+        $outputLogger,
         $filePath
     );
     $dataParser->run();
