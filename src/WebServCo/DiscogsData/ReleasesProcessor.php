@@ -8,6 +8,10 @@ final class ReleasesProcessor extends AbstractReleasesProcessor implements
     {
     }
 
+    /*
+    * @param mixed $data
+    * @return bool
+    */
     public function processItem($data)
     {
         ++ $this->totalItems;

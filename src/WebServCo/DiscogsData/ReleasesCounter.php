@@ -21,6 +21,10 @@ final class ReleasesCounter extends AbstractReleasesProcessor implements
         $this->logger->debug(__CLASS__ . PHP_EOL);
     }
 
+    /*
+    * @param mixed $data
+    * @return bool
+    */
     public function processItem($data)
     {
         ++ $this->totalItems;
@@ -32,6 +36,7 @@ final class ReleasesCounter extends AbstractReleasesProcessor implements
             );
         }
         $this->logger->debug($this->progressLine->suffix()); // pb suffix
+        return true;
     }
 
     public function finish()
