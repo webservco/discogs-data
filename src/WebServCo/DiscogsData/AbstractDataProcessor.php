@@ -3,10 +3,12 @@ namespace WebServCo\DiscogsData;
 
 abstract class AbstractDataProcessor
 {
-    protected $totalItems = 0;
+    protected $logger;
+    protected $totalItems;
 
-    public function __construct()
+    public function __construct(\WebServCo\Framework\Interfaces\LoggerInterface $logger)
     {
+        $this->logger = $logger;
         $this->totalItems = 0;
     }
 }
