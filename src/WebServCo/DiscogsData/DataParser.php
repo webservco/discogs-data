@@ -13,9 +13,9 @@ final class DataParser
     protected $filePath;
 
     protected $xmlReader;
-    protected $xmlNodeCount = 0;
-    protected $xmlItemCount = 0;
-    protected $xmlProcessedCount = 0;
+    protected $xmlNodeCount;
+    protected $xmlItemCount;
+    protected $xmlProcessedCount;
 
     public function __construct(
         \WebServCo\DiscogsData\Interfaces\DataProcessorInterface $dataProcessor,
@@ -35,6 +35,9 @@ final class DataParser
         if (!$this->xmlReader->open(sprintf('compress.zlib://%s', $this->filePath))) {
             throw new DataParserException(sprintf('Error opening file: %s', $filePath));
         }
+        $this->xmlNodeCount = 0;
+        $this->xmlItemCount = 0;
+        $this->xmlProcessedCount = 0;
     }
 
     public function run()
@@ -52,6 +55,11 @@ final class DataParser
                 }
                 $this->xmlReader->next();
             }
+            /* XXX *
+            if (10000 == $this->xmlNodeCount) {
+                break;
+            }
+            /* XXX */
         }
         $this->xmlReader->close();
         call_user_func_array($this->finishCallable, []);
