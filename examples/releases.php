@@ -3,7 +3,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: 'count';
 
-$filePath = __DIR__ . '/../var/data/discogs_20180901_releases.xml.gz';
+$filePath = __DIR__ . '/../var/data/discogs_20181001_releases.xml.gz';
 $outputLogger = new \WebServCo\Framework\OutputLogger();
 
 try {
