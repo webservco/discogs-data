@@ -4,11 +4,14 @@ namespace WebServCo\DiscogsData\Interfaces;
 interface DataProcessorInterface
 {
     public function getDataType();
-    public function start();
+
+    public function finish();
+
     /*
-    * @param mixed $data
+    * @param \DOMElement $domElement
     * @return bool
     */
-    public function processItem($data);
-    public function finish();
+    public function processItem(\DOMElement $domElement);
+
+    public function start();
 }
