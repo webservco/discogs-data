@@ -1,6 +1,8 @@
 <?php
 namespace WebServCo\DiscogsData;
 
+use WebServCo\Framework\Interfaces\OutputLoggerInterface;
+
 abstract class AbstractDataProcessor
 {
     protected $logger;
@@ -12,14 +14,20 @@ abstract class AbstractDataProcessor
     {
         $this->logger = $logger;
         $this->outputDirectory = $outputDirectory;
-        $this->progressLine = new \WebServCo\Framework\Cli\Progress\Line();
-        $this->progressLine->setShowResult(false);
+
+        if ($this->logger instanceof OutputLoggerInterface) {
+            $this->progressLine = new \WebServCo\Framework\Cli\Progress\Line();
+            $this->progressLine->setShowResult(false);
+        }
+
         $this->totalItems = 0;
     }
 
     public function finish()
     {
-        $this->progressLine->finish(); //pl finish
+        if ($this->logger instanceof OutputLoggerInterface) {
+            $this->progressLine->finish(); //pl finish
+        }
     }
 
     /*
@@ -29,11 +37,35 @@ abstract class AbstractDataProcessor
     public function processItem(\DOMElement $domElement)
     {
         ++ $this->totalItems;
+
+        $outputCheck = $this->totalItems%1000;
+        if (empty($outputCheck)) { // output every 1000 items
+            if ($this->logger instanceof OutputLoggerInterface) {
+                $this->logger->output(
+                    $this->progressLine->prefix(sprintf('Processing item %s', $this->totalItems)), // pl prefix
+                    false // eol
+                );
+            }
+        }
+
+        $result = $this->processItemCustom($domElement);
+
+        if (empty($outputCheck)) { // output every 1000 items
+            if ($this->logger instanceof OutputLoggerInterface) {
+                $this->logger->output(
+                    $this->progressLine->suffix($result),
+                    false // eol
+                ); // pl suffix
+            }
+        }
+        return $result;
     }
 
     public function start()
     {
     }
+
+    abstract protected function processItemCustom(\DOMElement $domElement);
 
     protected function saveXml(\DOMElement $domElement)
     {
