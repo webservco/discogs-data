@@ -1,7 +1,7 @@
 <?php
-namespace WebServCo\DiscogsData;
+namespace WebServCo\DiscogsData\Releases;
 
-final class ReleasesProcessor extends AbstractReleasesProcessor implements
+final class Processor extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
     /*

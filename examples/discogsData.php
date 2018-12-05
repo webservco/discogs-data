@@ -71,11 +71,11 @@ try {
     $cliRunner = new \WebServCo\Framework\Cli\Runner\Runner(sprintf('%svar/run/', $projectPath));
     $outputDirectory = sprintf('%svar/tmp/releases/', $projectPath);
 
-    $className = sprintf('\\WebServCo\\DiscogsData\\%s%s', $type, $processor);
+    $className = sprintf('\\WebServCo\\DiscogsData\\%s\\%s', $type, $processor);
     $dataProcessor = new $className($logger, $outputDirectory);
 
     $filePath = sprintf('%svar/data/%s', $projectPath, $fileName);
-    $dataParser = new \WebServCo\DiscogsData\DataParser(
+    $dataParser = new \WebServCo\DiscogsData\Data\Parser(
         $cliRunner,
         $dataProcessor,
         $logger,

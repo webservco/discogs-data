@@ -1,6 +1,7 @@
 <?php
 namespace WebServCo\DiscogsData;
 
+use WebServCo\DiscogsData\Data\Attributes;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor
@@ -69,13 +70,13 @@ abstract class AbstractDataProcessor
 
     protected function saveXml(\DOMElement $domElement)
     {
-        if (!$domElement->hasAttribute(DataAttributes::ID)) {
+        if (!$domElement->hasAttribute(Attributes::ID)) {
             throw new \WebServCo\DiscogsData\Exceptions\DataProcessorException(
-                sprintf('Item is missing required attribute "%s"', DataAttributes::ID)
+                sprintf('Item is missing required attribute "%s"', Attributes::ID)
             );
         }
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            sprintf('%s.xml', $domElement->getAttribute(DataAttributes::ID)),
+            sprintf('%s.xml', $domElement->getAttribute(Attributes::ID)),
             $domElement,
             true
         );

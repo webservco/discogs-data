@@ -1,10 +1,10 @@
 <?php
-namespace WebServCo\DiscogsData;
+namespace WebServCo\DiscogsData\Data;
 
 use WebServCo\DiscogsData\Exceptions\DataParserException;
 use WebServCo\DiscogsData\Interfaces\DataProcessorInterface;
 
-final class DataParser
+final class Parser
 {
     protected $cliRunner;
     protected $logger;

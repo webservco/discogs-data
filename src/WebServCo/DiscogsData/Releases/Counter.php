@@ -1,9 +1,9 @@
 <?php
-namespace WebServCo\DiscogsData;
+namespace WebServCo\DiscogsData\Releases;
 
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
-final class ReleasesCounter extends AbstractReleasesProcessor implements
+final class Counter extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
     /*
