@@ -3,9 +3,9 @@ namespace WebServCo\DiscogsData\Interfaces;
 
 interface DataProcessorInterface
 {
-    public function getDataType();
-
     public function finish();
+
+    public function getDataType();
 
     /*
     * @param \DOMElement $domElement

@@ -2,10 +2,13 @@
 namespace WebServCo\DiscogsData;
 
 use WebServCo\DiscogsData\Data\Attributes;
+use WebServCo\DiscogsData\Exceptions\DataProcessorException;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor
 {
+    const DATA_TYPE = null;
+
     protected $logger;
     protected $outputDirectory;
     protected $progressLine;
@@ -29,6 +32,11 @@ abstract class AbstractDataProcessor
         if ($this->logger instanceof OutputLoggerInterface) {
             $this->progressLine->finish(); //pl finish
         }
+    }
+
+    public function getDataType()
+    {
+        return static::DATA_TYPE; //using a metohd because we are implementing an interface
     }
 
     /*
@@ -71,7 +79,7 @@ abstract class AbstractDataProcessor
     protected function saveXml(\DOMElement $domElement)
     {
         if (!$domElement->hasAttribute(Attributes::ID)) {
-            throw new \WebServCo\DiscogsData\Exceptions\DataProcessorException(
+            throw new DataProcessorException(
                 sprintf('Item is missing required attribute "%s"', Attributes::ID)
             );
         }
