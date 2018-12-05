@@ -50,13 +50,13 @@ final class DataParser
     public function run()
     {
         $this->cliRunner->start(); // cli start
-        $this->logger->debug(__METHOD__ . PHP_EOL);
-        $this->logger->debug(sprintf('pid: %s', $this->cliRunner->getPid()) . PHP_EOL); // cli pid
+        $this->logger->debug(__METHOD__);
+        $this->logger->debug(sprintf('pid: %s', $this->cliRunner->getPid())); // cli pid
 
         call_user_func_array($this->startCallable, []); // dataProcessor->start
         while ($this->xmlReader->read()) {
             if (!$this->cliRunner->isRunning()) { // cli check
-                $this->logger->debug('Interrupt detected, stopping' . PHP_EOL);
+                $this->logger->debug('Interrupt detected, stopping');
                 break;
             }
             ++ $this->xmlNodeCount;
@@ -97,11 +97,11 @@ final class DataParser
 
     protected function debugStatistics(\WebServCo\Framework\Cli\Runner\Statistics $statistics)
     {
-        $this->logger->debug(sprintf('Result: %s%s', var_export($statistics->getResult(), true), PHP_EOL));
-        $this->logger->debug(sprintf('Total items: %s%s', $this->xmlItemCount, PHP_EOL));
-        $this->logger->debug(sprintf('Total processed: %s%s', $this->xmlProcessedCount, PHP_EOL));
+        $this->logger->debug(sprintf('Result: %s', var_export($statistics->getResult(), true)));
+        $this->logger->debug(sprintf('Total items: %s', $this->xmlItemCount));
+        $this->logger->debug(sprintf('Total processed: %s', $this->xmlProcessedCount));
         $duration = $statistics->getDuration();
-        $this->logger->debug(sprintf('Running time: %s seconds%s', round($duration, 2), PHP_EOL));
-        $this->logger->debug(sprintf('Memory peak usage: %s K%s', $statistics->getMemoryPeakUsage(), PHP_EOL));
+        $this->logger->debug(sprintf('Running time: %s seconds', round($duration, 2)));
+        $this->logger->debug(sprintf('Memory peak usage: %s K', $statistics->getMemoryPeakUsage()));
     }
 }
