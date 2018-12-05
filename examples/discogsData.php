@@ -25,7 +25,7 @@ $errorMessages = [
 
 $type = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : null;
 $processor = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : null;
-$fileName = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3]: null;
+$date = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3]: null;
 
 /* Output */
 
@@ -50,8 +50,8 @@ try {
             throw new DiscogsDataException(sprintf($errorMessages['invalidParameter'], 'processor (2)'));
         }
     }
-    if (empty($fileName)) {
-        throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'fileName (3)'));
+    if (empty($date)) {
+        throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'date (3)'));
     }
 } catch (DiscogsDataException $e) {
     $logger->debug(Ansi::sgr(sprintf('Error: %s', $e->getMessage()), [Sgr::RED]));
@@ -74,7 +74,12 @@ try {
     $className = sprintf('\\WebServCo\\DiscogsData\\%s\\%s', $type, $processor);
     $dataProcessor = new $className($logger, $outputDirectory);
 
-    $filePath = sprintf('%svar/data/%s', $projectPath, $fileName);
+    $filePath = sprintf(
+        '%svar/data/discogs_%s_%s.xml.gz',
+        $projectPath,
+        str_replace('-', '', $date),
+        strtolower($type)
+    );
     $dataParser = new \WebServCo\DiscogsData\Data\Parser(
         $cliRunner,
         $dataProcessor,

@@ -1,30 +1,29 @@
 # DiscogsData
 
 ## Notes
-* Keep data XML (.xml.gz);
-* Store data XML in `var/data`;
+* Store uncompressed (.xml.gz) data file in `var/data`;
 
 ---
 
 ## Examples
 ```
-bin/example {type} {processor} {filePath}
+bin/example {type} {processor} {date}
 ```
 Alternatively, if you have a custom PHP version:
 ```
-{phpPath} examples/discogsData.php {type} {processor} {filePath}
+{phpPath} examples/discogsData.php {type} {processor} {date}
 ```
 
 ## Releases
 
 ### Count releases
 ```
-bin/example releases counter discogs_20181201_releases.xml.gz
+bin/example releases counter 2018-12-01
 ```
 
 ### Process releases
 ```
-bin/example releases processor discogs_20181201_releases.xml.gz
+bin/example releases processor 2018-12-01
 ```
 
 ---
