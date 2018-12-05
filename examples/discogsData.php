@@ -11,14 +11,18 @@ require $projectPath . 'vendor/autoload.php';
 /* Configuration */
 
 $examples = [
-    'Releases' => [
+    'Artists' => [
         'Counter',
         'Debugger',
-        'Processor',
     ],
     'Masters' => [
         'Counter',
         'Debugger',
+    ],
+    'Releases' => [
+        'Counter',
+        'Debugger',
+        'Processor',
     ],
 ];
 $errorMessages = [

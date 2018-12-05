@@ -19,6 +19,38 @@ Alternatively, if you have a custom PHP version:
 
 ---
 
+## Artists
+
+### Count artists
+```
+bin/example Artists Counter 2018-12-01
+```
+
+### Debug artists
+> This method saves an XML file for each item.
+
+```
+bin/example Artists Debugger 2018-12-01
+```
+
+---
+
+## Masters
+
+### Count masters
+```
+bin/example Masters Counter 2018-12-01
+```
+
+### Debug masters
+> This method saves an XML file for each item.
+
+```
+bin/example Masters Debugger 2018-12-01
+```
+
+---
+
 ## Releases
 
 ### Count releases
@@ -36,22 +68,6 @@ bin/example Releases Debugger 2018-12-01
 ### Process releases
 ```
 bin/example Releases Processor 2018-12-01
-```
-
----
-
-## Masters
-
-### Count masters
-```
-bin/example Masters Counter 2018-12-01
-```
-
-### Debug masters
-> This method saves an XML file for each item.
-
-```
-bin/example Masters Debugger 2018-12-01
 ```
 
 ---

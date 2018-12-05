@@ -3,6 +3,7 @@ namespace WebServCo\DiscogsData\Data;
 
 final class Types
 {
-    const RELEASE = 'release';
+    const ARTIST = 'artist';
     const MASTER = 'master';
+    const RELEASE = 'release';
 }
