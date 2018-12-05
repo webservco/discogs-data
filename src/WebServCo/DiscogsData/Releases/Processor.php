@@ -12,9 +12,9 @@ final class Processor extends AbstractProcessor implements
     protected function processItemCustom(\DOMElement $domElement)
     {
         /* */
-        //var_dump($data->getAttribute('id')); //XXX
-        //var_dump($data->getAttribute('status')); //XXX
-        //var_dump($data); //XXX
-        return $this->saveXml($domElement); // save XML for each item
+        var_dump($domElement->getAttribute('id')); //XXX
+        var_dump($domElement->getAttribute('status')); //XXX
+        var_dump($domElement); //XXX
+        exit; //XXX
     }
 }
