@@ -1,0 +1,87 @@
+<?php
+
+use WebServCo\DiscogsData\Exceptions\DiscogsDataException;
+use WebServCo\Framework\Cli\Ansi;
+use WebServCo\Framework\Cli\Sgr;
+
+$projectPath = realpath(__DIR__ . '/..') . DIRECTORY_SEPARATOR;
+
+require $projectPath . 'vendor/autoload.php';
+
+/* Configuration */
+
+$examples = [
+    'Releases' => [
+        'Counter',
+        'Processor',
+    ],
+];
+$errorMessages = [
+    'missingParameter' => 'Missing parameter: %s',
+    'invalidParameter' => 'Invalid parameter: %s',
+];
+
+/* Set up */
+
+$type = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : null;
+$processor = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2] : null;
+$fileName = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3]: null;
+
+/* Output */
+
+$logger = new \WebServCo\Framework\CliOutputLogger();
+$logger->clear();
+$logger->debug(Ansi::sgr('Discogs Data: example', [Sgr::BOLD]));
+
+/* Validation */
+
+try {
+    if (empty($type)) {
+        throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'type (1)'));
+    }
+    if (!array_key_exists($type, $examples)) {
+        throw new DiscogsDataException(sprintf($errorMessages['invalidParameter'], 'type (1)'));
+    }
+    if (empty($processor)) {
+        throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'processor (2)'));
+    }
+    foreach ($examples as $exampleType => $processors) {
+        if (!in_array($processor, $processors)) {
+            throw new DiscogsDataException(sprintf($errorMessages['invalidParameter'], 'processor (2)'));
+        }
+    }
+    if (empty($fileName)) {
+        throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'fileName (3)'));
+    }
+} catch (DiscogsDataException $e) {
+    $logger->debug(Ansi::sgr(sprintf('Error: %s', $e->getMessage()), [Sgr::RED]));
+    exit;
+}
+
+/* Run */
+
+try {
+    /*
+    $fileLogger = new \WebServCo\Framework\FileLogger(
+        'discogs-data',
+        __DIR__ . '/../var/log/',
+        \WebServCo\Framework\Framework::library('Request')
+    );
+    */
+    $cliRunner = new \WebServCo\Framework\Cli\Runner\Runner(sprintf('%svar/run/', $projectPath));
+    $outputDirectory = sprintf('%svar/tmp/releases/', $projectPath);
+
+    $className = sprintf('\\WebServCo\\DiscogsData\\%s%s', $type, $processor);
+    $dataProcessor = new $className($logger, $outputDirectory);
+
+    $filePath = sprintf('%svar/data/%s', $projectPath, $fileName);
+    $dataParser = new \WebServCo\DiscogsData\DataParser(
+        $cliRunner,
+        $dataProcessor,
+        $logger,
+        $filePath
+    );
+    $dataParser->run();
+} catch (DiscogsDataException $e) {
+    $logger->error(sprintf('Error: %s%s', $e->getMessage(), PHP_EOL));
+}
