@@ -1,10 +1,18 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+$projectPath = realpath(__DIR__ . '/..') . DIRECTORY_SEPARATOR;
 
-$exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: 'count';
+require $projectPath . 'vendor/autoload.php';
 
-$filePath = __DIR__ . '/../var/data/discogs_20181001_releases.xml.gz';
-$outputLogger = new \WebServCo\Framework\OutputLogger();
+$exampleType = isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1]: null;
+$fileName = isset($_SERVER['argv'][2]) ? $_SERVER['argv'][2]: null;
+
+if (empty($exampleType) || empty($fileName)) {
+    exit('Error: missing parameters' . PHP_EOL);
+}
+
+$filePath = sprintf('%svar/data/%s', $projectPath, $fileName);
+
+$logger = new \WebServCo\Framework\OutputLogger();
 
 try {
     /*
@@ -14,22 +22,25 @@ try {
         \WebServCo\Framework\Framework::library('Request')
     );
     */
+    $cliRunner = new \WebServCo\Framework\Cli\Runner\Runner(sprintf('%svar/run/', $projectPath));
+    $outputDirectory = sprintf('%svar/tmp/releases/', $projectPath);
     switch ($exampleType) {
         case 'process':
-            $dataProcessor = new \WebServCo\DiscogsData\ReleasesProcessor($outputLogger);
+            $dataProcessor = new \WebServCo\DiscogsData\ReleasesProcessor($logger, $outputDirectory);
             break;
         case 'count':
         default:
-            $dataProcessor = new \WebServCo\DiscogsData\ReleasesCounter($outputLogger);
+            $dataProcessor = new \WebServCo\DiscogsData\ReleasesCounter($logger, $outputDirectory);
             break;
     }
 
     $dataParser = new \WebServCo\DiscogsData\DataParser(
+        $cliRunner,
         $dataProcessor,
-        $outputLogger,
+        $logger,
         $filePath
     );
     $dataParser->run();
 } catch (\WebServCo\DiscogsData\Exceptions\DiscogsDataException $e) {
-    $outputLogger->error(sprintf('Error: %s%s', $e->getMessage(), PHP_EOL));
+    $logger->error(sprintf('Error: %s%s', $e->getMessage(), PHP_EOL));
 }
