@@ -13,7 +13,12 @@ require $projectPath . 'vendor/autoload.php';
 $examples = [
     'Releases' => [
         'Counter',
+        'Debugger',
         'Processor',
+    ],
+    'Masters' => [
+        'Counter',
+        'Debugger',
     ],
 ];
 $errorMessages = [
@@ -61,15 +66,11 @@ try {
 /* Run */
 
 try {
-    /*
-    $fileLogger = new \WebServCo\Framework\FileLogger(
-        'discogs-data',
-        __DIR__ . '/../var/log/',
-        \WebServCo\Framework\Framework::library('Request')
-    );
-    */
     $cliRunner = new \WebServCo\Framework\Cli\Runner\Runner(sprintf('%svar/run/', $projectPath));
-    $outputDirectory = sprintf('%svar/tmp/releases/', $projectPath);
+    $outputDirectory = sprintf('%svar/tmp/debug/%s/', $projectPath, strtolower($type));
+    if (!is_writable($outputDirectory)) {
+        throw new DiscogsDataException(sprintf('Output directory not writable: %s', $outputDirectory));
+    }
 
     $className = sprintf('\\WebServCo\\DiscogsData\\%s\\%s', $type, $processor);
     $dataProcessor = new $className($logger, $outputDirectory);
