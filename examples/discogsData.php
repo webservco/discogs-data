@@ -41,7 +41,7 @@ $date = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3]: null;
 
 /* Output */
 
-$logger = new \WebServCo\Framework\CliOutputLogger();
+$logger = new \WebServCo\Framework\Log\CliOutputLogger();
 $logger->clear();
 $logger->debug(Ansi::sgr('Discogs Data: example', [Sgr::BOLD]));
 
