@@ -26,7 +26,6 @@ $examples = [
     'Releases' => [
         'Counter',
         'Debugger',
-        'Processor',
     ],
 ];
 $errorMessages = [
