@@ -1,4 +1,7 @@
 # Examples
+
+## Run
+
 ```
 bin/example {type} {processor} {date}
 ```
@@ -79,11 +82,6 @@ bin/example Releases Counter 2018-12-01
 
 ```
 bin/example Releases Debugger 2018-12-01
-```
-
-### Process releases
-```
-bin/example Releases Processor 2018-12-01
 ```
 
 ---
