@@ -76,15 +76,35 @@ abstract class AbstractDataProcessor
 
     abstract protected function processItemCustom(\DOMElement $domElement);
 
+    /**
+     * Extract item id from XML node.
+     * Try to find a tag named "id".
+     * Releases and masters have also an attibute named "id", that is checked first.
+     * Defaults to an md5 hash of the content.
+     */
+    protected function getDomElementId(\DOMElement $domElement)
+    {
+        // check for attribute
+        if ($domElement->hasAttribute(Attributes::ID)) {
+            return $domElement->getAttribute(Attributes::ID);
+        }
+        // check for tag
+        $nodes = $domElement->getElementsByTagName(\WebServCo\DiscogsData\Data\Tags::ID);
+        if ($nodes->length) {
+            if ($nodes->item(0) instanceof \DOMNode) {
+                return $nodes->item(0)->nodeValue;
+            }
+        }
+        // default to md5 hash
+        return md5($domElement->nodeValue);
+    }
+
     protected function saveXml(\DOMElement $domElement)
     {
-        if (!$domElement->hasAttribute(Attributes::ID)) {
-            throw new DataProcessorException(
-                sprintf('Item is missing required attribute "%s"', Attributes::ID)
-            );
-        }
+        $id = $this->getDomElementId($domElement);
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            sprintf('%s.xml', $domElement->getAttribute(Attributes::ID)),
+            //sprintf('%s.xml', $domElement->getAttribute(Attributes::ID)),
+            sprintf('%s.xml', $id),
             $domElement,
             true
         );
