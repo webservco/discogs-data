@@ -9,7 +9,7 @@
     "homepage" : "https://github.com/webservco/discogs-data",
     "license" : "MIT",
     "require": {
-        "php" : "^7.1",
+        "php" : "^5.4 || ^7.0",
         "webservco/framework" : "@dev"
     },
     "require-dev" : {
