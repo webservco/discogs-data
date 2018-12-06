@@ -15,6 +15,10 @@ $examples = [
         'Counter',
         'Debugger',
     ],
+    'Labels' => [
+        'Counter',
+        'Debugger',
+    ],
     'Masters' => [
         'Counter',
         'Debugger',

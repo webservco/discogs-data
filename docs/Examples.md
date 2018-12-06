@@ -35,6 +35,22 @@ bin/example Artists Debugger 2018-12-01
 
 ---
 
+## Labels
+
+### Count labels
+```
+bin/example Labels Counter 2018-12-01
+```
+
+### Debug labels
+> This method saves an XML file for each item.
+
+```
+bin/example Labels Debugger 2018-12-01
+```
+
+---
+
 ## Masters
 
 ### Count masters
