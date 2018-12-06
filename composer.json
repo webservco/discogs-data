@@ -12,7 +12,7 @@
         "webservco/framework" : "@dev"
     },
     "require-dev" : {
-        "webservco/framework" : "@dev"
+        "phpunit/phpunit" : "~4|~5"
     },
     "suggest" : {
         "pds/skeleton" : "A standard filesystem skeleton suitable for all PHP packages.",
@@ -21,13 +21,16 @@
     },
     "autoload" : {
         "psr-4" : {
-            "WebServCo\\" : "src/WebServCo/"
+            "WebServCo\\" : "src/WebServCo/",
+            "Tests\\" : "tests/unit/WebServCo/"
         }
     },
     "scripts" : {
+        "test" : "vendor/bin/phpunit --colors=always",
+        "test:d" : "vendor/bin/phpunit --testdox",
         "check:structure" : "pds-skeleton validate .",
-        "check" : "phpcs --standard=PSR2 --extensions=php examples src",
-        "s:7": "phpstan analyse examples src --level=7 --ansi -c phpstan.neon",
-        "all": "clear && composer s:7 && composer check"
+        "check" : "phpcs --standard=PSR2 --extensions=php examples src tests",
+        "s:7": "phpstan analyse examples src tests --level=7 --ansi -c phpstan.neon",
+        "all": "clear && composer s:7 && composer check && composer test"
     }
 }
