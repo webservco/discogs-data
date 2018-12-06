@@ -1,5 +1,7 @@
 # Examples
 
+> Install the project locally.
+
 ## Run
 
 ```

@@ -2,6 +2,8 @@
 
 Steps to create the Discogs Data database and user, and import the table structure.
 
+[Database structure](/resources/schema/mysql/discogs_data_import.sql)
+
 ---
 
 ## MySQL
