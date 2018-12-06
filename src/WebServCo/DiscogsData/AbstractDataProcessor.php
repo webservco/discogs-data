@@ -108,6 +108,7 @@ abstract class AbstractDataProcessor
             $domElement,
             true
         );
-        return file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
+        $result = file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
+        return $result !== false;
     }
 }
