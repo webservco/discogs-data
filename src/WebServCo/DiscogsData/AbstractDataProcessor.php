@@ -30,7 +30,9 @@ abstract class AbstractDataProcessor
     public function finish()
     {
         if ($this->logger instanceof OutputLoggerInterface) {
-            $this->progressLine->finish(); //pl finish
+            $this->logger->output(
+                $this->progressLine->finish() //pl finish
+            );
         }
     }
 
