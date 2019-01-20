@@ -14,6 +14,8 @@ abstract class AbstractDataProcessor
     protected $progressLine;
     protected $totalItems;
 
+    abstract protected function processItemCustom(\DOMElement $domElement);
+
     public function __construct(\WebServCo\Framework\Interfaces\LoggerInterface $logger, $outputDirectory)
     {
         $this->logger = $logger;
@@ -75,8 +77,6 @@ abstract class AbstractDataProcessor
     public function start()
     {
     }
-
-    abstract protected function processItemCustom(\DOMElement $domElement);
 
     /**
      * Extract item id from XML node.

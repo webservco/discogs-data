@@ -5,20 +5,20 @@ Utilities for working with the Discogs monthly data dumps (parse, process, impor
 ## Current functionality
 
 ### Artists
-- Count
-- Debug
+- Count: `\WebServCo\DiscogsData\Artists\Counter`
+- Debug: `\WebServCo\DiscogsData\Artists\Debugger`
 
 ### Labels
-- Count
-- Debug
+- Count `\WebServCo\DiscogsData\Labels\Counter`
+- Debug `\WebServCo\DiscogsData\Labels\Debugger`
 
 ### Masters
-- Count
-- Debug
+- Count `\WebServCo\DiscogsData\Masters\Counter`
+- Debug `\WebServCo\DiscogsData\Masters\Debugger`
 
 ### Releases
-- Count
-- Debug
+- Count `\WebServCo\DiscogsData\Releases\Counter`
+- Debug `\WebServCo\DiscogsData\Releases\Debugger`
 
 ---
 
