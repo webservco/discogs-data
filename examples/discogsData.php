@@ -79,7 +79,7 @@ try {
         throw new DiscogsDataException(sprintf('Output directory not writable: %s', $outputDirectory));
     }
 
-    $className = sprintf('\\WebServCo\\DiscogsData\\%s\\%s', $type, $processor);
+    $className = sprintf('\\WebServCo\\DiscogsData\\Processors\\%s\\%s', $type, $processor);
     $dataProcessor = new $className($logger, $outputDirectory);
 
     $filePath = sprintf(
