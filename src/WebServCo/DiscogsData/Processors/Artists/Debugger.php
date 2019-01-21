@@ -1,7 +1,7 @@
 <?php
-namespace WebServCo\DiscogsData\Masters;
+namespace WebServCo\DiscogsData\Processors\Artists;
 
-final class Counter extends AbstractProcessor implements
+final class Debugger extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
     /*
@@ -11,6 +11,6 @@ final class Counter extends AbstractProcessor implements
     */
     protected function processItemCustom(\DOMElement $domElement)
     {
-        return true;
+        return $this->saveXml($domElement); // save XML for each item
     }
 }

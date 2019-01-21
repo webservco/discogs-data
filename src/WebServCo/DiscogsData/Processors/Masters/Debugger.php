@@ -1,5 +1,5 @@
 <?php
-namespace WebServCo\DiscogsData\Masters;
+namespace WebServCo\DiscogsData\Processors\Masters;
 
 final class Debugger extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface

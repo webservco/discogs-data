@@ -1,8 +1,8 @@
 <?php
-namespace Tests\DiscogsData\Releases;
+namespace Tests\DiscogsData\Processors\Releases;
 
 use PHPUnit\Framework\TestCase;
-use WebServCo\DiscogsData\Releases\AbstractProcessor;
+use WebServCo\DiscogsData\Processors\Releases\AbstractProcessor;
 
 final class AbstractProcessorTest extends TestCase
 {

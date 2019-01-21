@@ -1,5 +1,5 @@
 <?php
-namespace WebServCo\DiscogsData;
+namespace WebServCo\DiscogsData\Processors;
 
 use WebServCo\DiscogsData\Data\Attributes;
 use WebServCo\DiscogsData\Exceptions\DataProcessorException;

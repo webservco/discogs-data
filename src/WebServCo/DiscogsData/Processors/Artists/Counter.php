@@ -1,5 +1,5 @@
 <?php
-namespace WebServCo\DiscogsData\Releases;
+namespace WebServCo\DiscogsData\Processors\Artists;
 
 final class Counter extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
