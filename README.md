@@ -50,8 +50,32 @@ composer install
 
 ## Statistics
 
-### Monthly data dumps item totals
+### 2019 Monthly data dumps item totals
 
-| 2019    | Artists   | Labels    | Masters   | Releases   |
-|---------|-----------|-----------|-----------|------------|
-| January | 6 034 590 | 1 309 292 | 1 444 467 | 10 668 146 |
+#### Artists
+
+| Month    | Total     | Difference |
+|----------|-----------|------------|
+| January  | 6 034 590 |            |
+| February | 6 091 081 | + 56 491   |
+
+#### Labels
+
+| Month    | Total     | Difference |
+|----------|-----------|------------|
+| January  | 1 309 292 |            |
+| February | 1 323 716 | + 14 424   |
+
+#### Masters
+
+| Month    | Total     | Difference |
+|----------|-----------|------------|
+| January  | 1 444 467 |            |
+| February | 1 461 073 | + 16 606   |
+
+#### Releases
+
+| Month    | Total      | Difference |
+|----------|------------|------------|
+| January  | 10 668 146 |            |
+| February | 10 785 723 | + 117 577  |

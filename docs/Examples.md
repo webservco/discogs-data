@@ -28,14 +28,14 @@ Alternatively, if you have a custom PHP version:
 
 ### Count artists
 ```
-bin/example Artists Counter 2019-01-01
+bin/example Artists Counter 2019-02-01
 ```
 
 ### Debug artists
 > This method saves an XML file for each item.
 
 ```
-bin/example Artists Debugger 2019-01-01
+bin/example Artists Debugger 2019-02-01
 ```
 
 ---
@@ -44,14 +44,14 @@ bin/example Artists Debugger 2019-01-01
 
 ### Count labels
 ```
-bin/example Labels Counter 2019-01-01
+bin/example Labels Counter 2019-02-01
 ```
 
 ### Debug labels
 > This method saves an XML file for each item.
 
 ```
-bin/example Labels Debugger 2019-01-01
+bin/example Labels Debugger 2019-02-01
 ```
 
 ---
@@ -60,14 +60,14 @@ bin/example Labels Debugger 2019-01-01
 
 ### Count masters
 ```
-bin/example Masters Counter 2019-01-01
+bin/example Masters Counter 2019-02-01
 ```
 
 ### Debug masters
 > This method saves an XML file for each item.
 
 ```
-bin/example Masters Debugger 2019-01-01
+bin/example Masters Debugger 2019-02-01
 ```
 
 ---
@@ -76,14 +76,14 @@ bin/example Masters Debugger 2019-01-01
 
 ### Count releases
 ```
-bin/example Releases Counter 2019-01-01
+bin/example Releases Counter 2019-02-01
 ```
 
 ### Debug releases
 > This method saves an XML file for each item.
 
 ```
-bin/example Releases Debugger 2019-01-01
+bin/example Releases Debugger 2019-02-01
 ```
 
 ---
