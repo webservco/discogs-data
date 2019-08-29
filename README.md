@@ -31,7 +31,7 @@ composer require webservco/discogs-data
 
 ## Development install
 ```
-git clone git@github.com:webservco/discogs-data.git
+git clone https://github.com/webservco/discogs-data.git
 cd discogs-data
 composer install
 ```
