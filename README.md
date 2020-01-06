@@ -59,5 +59,6 @@ composer install
 ### Monthly data dumps item totals
 
 * [2019](/docs/Statistics/2019.md)
+* [2020](/docs/Statistics/2020.md)
 
 ---
