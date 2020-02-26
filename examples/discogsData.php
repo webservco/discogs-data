@@ -43,7 +43,12 @@ $date = isset($_SERVER['argv'][3]) ? $_SERVER['argv'][3]: null;
 
 $logger = new \WebServCo\Framework\Log\CliOutputLogger();
 $logger->clear();
-$logger->debug(Ansi::sgr('Discogs Data: example', [Sgr::BOLD]));
+$logger->debug(
+    Ansi::sgr(
+        sprintf('Discogs Data: example: %s %s %s', $type, $processor, $date),
+        [Sgr::BOLD]
+    )
+);
 
 /* Validation */
 
