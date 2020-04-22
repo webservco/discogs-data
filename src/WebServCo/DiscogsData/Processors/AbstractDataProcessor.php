@@ -101,11 +101,9 @@ abstract class AbstractDataProcessor
         return md5($domElement->nodeValue);
     }
 
-    protected function saveXml(\DOMElement $domElement)
+    protected function saveXml($id, \DOMElement $domElement)
     {
-        $id = $this->getDomElementId($domElement);
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            //sprintf('%s.xml', $domElement->getAttribute(Attributes::ID)),
             sprintf('%s.xml', $id),
             $domElement,
             true
