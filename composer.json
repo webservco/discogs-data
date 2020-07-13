@@ -31,7 +31,7 @@
         "test:d" : "vendor/bin/phpunit --testdox",
         "check:structure" : "pds-skeleton validate .",
         "check" : "phpcs --standard=PSR2 --extensions=php examples src tests",
-        "s:7": "phpstan analyse examples src tests --level=7 --ansi -c phpstan.neon",
-        "all": "clear && composer s:7 && composer check && composer test"
+        "s:5": "phpstan analyse examples src tests --level=5 --ansi -c phpstan.neon",
+        "all": "clear && composer s:5 && composer check && composer test"
     }
 }
