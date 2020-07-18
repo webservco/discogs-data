@@ -111,4 +111,18 @@ abstract class AbstractDataProcessor
         $result = file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
         return $result !== false;
     }
+
+    protected function toJson(\DOMElement $domElement)
+    {
+        $domDocument = new \DOMDocument;
+        $domDocument->preserveWhiteSpace = false;
+        $domDocument->formatOutput = true;
+        $domDocument->appendChild($domElement);
+        $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
+        $json = json_encode($simpleXMLElement);
+        // reset
+        $domDocument = null;
+        $simpleXMLElement = null;
+        return $json;
+    }
 }
