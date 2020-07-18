@@ -62,10 +62,8 @@ try {
     if (empty($processor)) {
         throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'processor (2)'));
     }
-    foreach ($examples as $exampleType => $processors) {
-        if (!in_array($processor, $processors)) {
-            throw new DiscogsDataException(sprintf($errorMessages['invalidParameter'], 'processor (2)'));
-        }
+    if (!in_array($processor, $examples[$type])) {
+        throw new DiscogsDataException(sprintf($errorMessages['invalidParameter'], 'processor (2)'));
     }
     if (empty($date)) {
         throw new DiscogsDataException(sprintf($errorMessages['missingParameter'], 'date (3)'));
