@@ -119,10 +119,12 @@ abstract class AbstractDataProcessor
         $domDocument->formatOutput = true;
         $domDocument->appendChild($domElement);
         $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
+
         $json = json_encode($simpleXMLElement);
         // reset
         $domDocument = null;
         $simpleXMLElement = null;
+
         return $json;
     }
 }
