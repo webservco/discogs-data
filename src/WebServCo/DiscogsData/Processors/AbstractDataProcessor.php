@@ -2,7 +2,6 @@
 namespace WebServCo\DiscogsData\Processors;
 
 use WebServCo\DiscogsData\Data\Attributes;
-use WebServCo\DiscogsData\Exceptions\DataProcessorException;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor

@@ -3,7 +3,9 @@ namespace WebServCo\DiscogsData\Exceptions;
 
 class DiscogsDataException extends \Exception
 {
-    public function __construct($message, $code = 0, \Exception $previous = null)
+    const CODE = 500;
+
+    public function __construct($message, $code = self::CODE, \Exception $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
