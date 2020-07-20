@@ -116,12 +116,13 @@ abstract class AbstractDataProcessor
         $domDocument = new \DOMDocument;
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
-        $domDocument->appendChild($domElement);
+        $element = $domDocument->importNode($domElement, true);
+        $domDocument->appendChild($element);
         $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
-
         $json = json_encode($simpleXMLElement);
         // reset
         $domDocument = null;
+        $element = null;
         $simpleXMLElement = null;
 
         return $json;
