@@ -12,12 +12,6 @@ final class Debugger extends AbstractProcessor implements
     protected function processItemCustom(\DOMElement $domElement)
     {
         $id = $this->getDomElementId($domElement);
-        /*$ids = [
-            6721952, // Meat Loaf BOOH1
-            6438424, // Avaricious MC
-        ];
-        if (in_array($id, $ids)) {*/
         return $this->saveXml($id, $domElement);
-        /*}*/
     }
 }
