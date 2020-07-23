@@ -120,10 +120,11 @@ abstract class AbstractDataProcessor
         $domDocument->appendChild($element);
         $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
         $json = json_encode($simpleXMLElement);
-        // reset
+        /* Reset disabled, seems to cause CPU activity increase
         $domDocument = null;
         $element = null;
         $simpleXMLElement = null;
+        */
 
         return $json;
     }
