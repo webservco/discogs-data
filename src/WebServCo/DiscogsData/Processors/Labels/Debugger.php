@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsData\Processors\Labels;
 
 final class Debugger extends AbstractProcessor implements

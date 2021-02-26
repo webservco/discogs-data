@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Tests\DiscogsData\Data;
 
 use PHPUnit\Framework\TestCase;
@@ -9,7 +12,7 @@ final class TypesTest extends TestCase
     /**
      * @test
      */
-    public function constantArtistHasExpectedValue()
+    public function constantArtistHasExpectedValue(): void
     {
         $this->assertEquals('artist', Types::ARTIST);
     }
@@ -17,7 +20,7 @@ final class TypesTest extends TestCase
     /**
      * @test
      */
-    public function constantLabelHasExpectedValue()
+    public function constantLabelHasExpectedValue(): void
     {
         $this->assertEquals('label', Types::LABEL);
     }
@@ -25,7 +28,7 @@ final class TypesTest extends TestCase
     /**
      * @test
      */
-    public function constantMasterHasExpectedValue()
+    public function constantMasterHasExpectedValue(): void
     {
         $this->assertEquals('master', Types::MASTER);
     }
@@ -33,7 +36,7 @@ final class TypesTest extends TestCase
     /**
      * @test
      */
-    public function constantReleaseHasExpectedValue()
+    public function constantReleaseHasExpectedValue(): void
     {
         $this->assertEquals('release', Types::RELEASE);
     }

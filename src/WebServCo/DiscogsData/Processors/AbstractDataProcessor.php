@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsData\Processors;
 
 use WebServCo\DiscogsData\Data\Attributes;
@@ -13,7 +16,7 @@ abstract class AbstractDataProcessor
     protected $progressLine;
     protected $totalItems;
 
-    abstract protected function processItemCustom(\DOMElement $domElement);
+    abstract protected function processItemCustom(\DOMElement $domElement): void;
 
     public function __construct(\WebServCo\Framework\Interfaces\LoggerInterface $logger, $outputDirectory)
     {
@@ -28,18 +31,20 @@ abstract class AbstractDataProcessor
         $this->totalItems = 0;
     }
 
-    public function finish()
+    public function finish(): void
     {
-        if ($this->logger instanceof OutputLoggerInterface) {
-            $this->logger->output(
-                $this->progressLine->finish() //pl finish
-            );
+        if (!($this->logger instanceof OutputLoggerInterface)) {
+            return;
         }
+
+        $this->logger->output(
+            $this->progressLine->finish(), //pl finish
+        );
     }
 
     public function getDataType()
     {
-        return static::DATA_TYPE; //using a metohd because we are implementing an interface
+        return self::DATA_TYPE; //using a metohd because we are implementing an interface
     }
 
     /*
@@ -48,14 +53,14 @@ abstract class AbstractDataProcessor
     */
     public function processItem(\DOMElement $domElement)
     {
-        ++ $this->totalItems;
+        ++$this->totalItems;
 
-        $outputCheck = $this->totalItems%1000;
+        $outputCheck = $this->totalItems % 1000;
         if (empty($outputCheck)) { // output every 1000 items
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
-                    $this->progressLine->prefix(sprintf('Processing item %s', $this->totalItems)), // pl prefix
-                    false // eol
+                    $this->progressLine->prefix(\sprintf('Processing item %s', $this->totalItems)), // pl prefix
+                    false, // eol
                 );
             }
         }
@@ -66,14 +71,14 @@ abstract class AbstractDataProcessor
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
                     $this->progressLine->suffix($result),
-                    false // eol
+                    false, // eol
                 ); // pl suffix
             }
         }
         return $result;
     }
 
-    public function start()
+    public function start(): void
     {
     }
 
@@ -97,35 +102,28 @@ abstract class AbstractDataProcessor
             }
         }
         // default to md5 hash
-        return md5($domElement->nodeValue);
+        return \md5($domElement->nodeValue);
     }
 
     protected function saveXml($id, \DOMElement $domElement)
     {
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            sprintf('%s.xml', $id),
+            \sprintf('%s.xml', $id),
             $domElement,
-            true
+            true,
         );
-        $result = file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
-        return $result !== false;
+        $result = \file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
+        return false !== $result;
     }
 
     protected function toJson(\DOMElement $domElement)
     {
-        $domDocument = new \DOMDocument;
+        $domDocument = new \DOMDocument();
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
         $element = $domDocument->importNode($domElement, true);
         $domDocument->appendChild($element);
-        $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
-        $json = json_encode($simpleXMLElement);
-        /* Reset disabled, seems to cause CPU activity increase
-        $domDocument = null;
-        $element = null;
-        $simpleXMLElement = null;
-        */
-
-        return $json;
+        $simpleXMLElement = \simplexml_import_dom($domDocument); // SimpleXMLElement
+        return \json_encode($simpleXMLElement);
     }
 }
