@@ -6,28 +6,49 @@ namespace WebServCo\DiscogsData\Data;
 
 use WebServCo\DiscogsData\Exceptions\DataParserException;
 use WebServCo\DiscogsData\Interfaces\DataProcessorInterface;
+use WebServCo\Framework\Interfaces\CliRunnerInterface;
+use WebServCo\Framework\Interfaces\LoggerInterface;
 
 final class Parser
 {
-    protected $cliRunner;
-    protected $logger;
+    protected CliRunnerInterface $cliRunner;
 
-    protected $dataType;
+    protected LoggerInterface $logger;
 
-    protected $startCallable;
-    protected $itemCallable;
-    protected $finishCallable;
+    protected string $dataType;
 
-    protected $xmlReader;
-    protected $xmlNodeCount;
-    protected $xmlItemCount;
-    protected $xmlProcessedCount;
+    /**
+    * Callable.
+    *
+    * @var array<\WebServCo\DiscogsData\Interfaces\DataProcessorInterface|string>
+    */
+    protected array $startCallable;
+
+    /**
+    * Callable.
+    *
+    * @var array<\WebServCo\DiscogsData\Interfaces\DataProcessorInterface|string>
+    */
+    protected array $itemCallable;
+
+    /**
+    * Callable.
+    *
+    * @var array<\WebServCo\DiscogsData\Interfaces\DataProcessorInterface|string>
+    */
+    protected array $finishCallable;
+
+    protected \XMLReader $xmlReader;
+
+    protected int $xmlNodeCount;
+    protected int $xmlItemCount;
+    protected int $xmlProcessedCount;
 
     public function __construct(
-        \WebServCo\Framework\Interfaces\CliRunnerInterface $cliRunner,
+        CliRunnerInterface $cliRunner,
         DataProcessorInterface $dataProcessor,
-        \WebServCo\Framework\Interfaces\LoggerInterface $logger,
-        $filePath
+        LoggerInterface $logger,
+        string $filePath
     ) {
         if (!\is_readable($filePath)) {
             throw new DataParserException(\sprintf('File path not readable: %s', $filePath));
@@ -50,7 +71,7 @@ final class Parser
         }
     }
 
-    public function run()
+    public function run(): bool
     {
         $this->cliRunner->start(); // cli start
         $this->logger->debug(__METHOD__);

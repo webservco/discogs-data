@@ -8,11 +8,9 @@ final class Counter extends AbstractProcessor implements
     \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
 {
     /*
-    * Called by the parent method processItem
-    * @param \DOMElement $domElement
-    * @return bool
+    * Called by the parent method processItem.
     */
-    protected function processItemCustom(\DOMElement $domElement)
+    protected function processItemCustom(\DOMElement $domElement): bool
     {
         return true;
     }

@@ -5,26 +5,28 @@ declare(strict_types=1);
 namespace WebServCo\DiscogsData\Processors;
 
 use WebServCo\DiscogsData\Data\Attributes;
+use WebServCo\Framework\Cli\Progress\Line;
+use WebServCo\Framework\Interfaces\LoggerInterface;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor
 {
-    const DATA_TYPE = null;
+    protected const DATA_TYPE = '';
 
-    protected $logger;
-    protected $outputDirectory;
-    protected $progressLine;
-    protected $totalItems;
+    protected LoggerInterface $logger;
+    protected string $outputDirectory;
+    protected Line $progressLine;
+    protected int $totalItems;
 
-    abstract protected function processItemCustom(\DOMElement $domElement): void;
+    abstract protected function processItemCustom(\DOMElement $domElement): bool;
 
-    public function __construct(\WebServCo\Framework\Interfaces\LoggerInterface $logger, $outputDirectory)
+    public function __construct(LoggerInterface $logger, string $outputDirectory)
     {
         $this->logger = $logger;
         $this->outputDirectory = $outputDirectory;
 
         if ($this->logger instanceof OutputLoggerInterface) {
-            $this->progressLine = new \WebServCo\Framework\Cli\Progress\Line();
+            $this->progressLine = new Line();
             $this->progressLine->setShowResult(false);
         }
 
@@ -42,16 +44,12 @@ abstract class AbstractDataProcessor
         );
     }
 
-    public function getDataType()
+    public function getDataType(): string
     {
-        return self::DATA_TYPE; //using a metohd because we are implementing an interface
+        return self::DATA_TYPE; //using a method because we are implementing an interface
     }
 
-    /*
-    * @param \DOMElement $domElement
-    * @return bool
-    */
-    public function processItem(\DOMElement $domElement)
+    public function processItem(\DOMElement $domElement): bool
     {
         ++$this->totalItems;
 
@@ -88,7 +86,7 @@ abstract class AbstractDataProcessor
      * Releases and masters have also an attibute named "id", that is checked first.
      * Defaults to an md5 hash of the content.
      */
-    protected function getDomElementId(\DOMElement $domElement)
+    protected function getDomElementId(\DOMElement $domElement): string
     {
         // check for attribute
         if ($domElement->hasAttribute(Attributes::ID)) {
@@ -105,7 +103,7 @@ abstract class AbstractDataProcessor
         return \md5($domElement->nodeValue);
     }
 
-    protected function saveXml($id, \DOMElement $domElement)
+    protected function saveXml(int $id, \DOMElement $domElement): bool
     {
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
             \sprintf('%s.xml', $id),
@@ -116,7 +114,7 @@ abstract class AbstractDataProcessor
         return false !== $result;
     }
 
-    protected function toJson(\DOMElement $domElement)
+    protected function toJson(\DOMElement $domElement): string
     {
         $domDocument = new \DOMDocument();
         $domDocument->preserveWhiteSpace = false;

@@ -6,5 +6,5 @@ namespace WebServCo\DiscogsData\Data;
 
 final class Tags
 {
-    const ID = 'id';
+    public const ID = 'id';
 }

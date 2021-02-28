@@ -8,13 +8,9 @@ interface DataProcessorInterface
 {
     public function finish(): void;
 
-    public function getDataType(): void;
+    public function getDataType(): string;
 
-    /*
-    * @param \DOMElement $domElement
-    * @return bool
-    */
-    public function processItem(\DOMElement $domElement): void;
+    public function processItem(\DOMElement $domElement): bool;
 
     public function start(): void;
 }

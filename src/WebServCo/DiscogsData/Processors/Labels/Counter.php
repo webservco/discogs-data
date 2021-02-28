@@ -9,10 +9,8 @@ final class Counter extends AbstractProcessor implements
 {
     /*
     * Called by the parent method processItem
-    * @param \DOMElement $domElement
-    * @return bool
     */
-    protected function processItemCustom(\DOMElement $domElement)
+    protected function processItemCustom(\DOMElement $domElement): bool
     {
         return true;
     }

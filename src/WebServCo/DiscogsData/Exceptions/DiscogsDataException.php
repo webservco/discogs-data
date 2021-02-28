@@ -6,9 +6,9 @@ namespace WebServCo\DiscogsData\Exceptions;
 
 class DiscogsDataException extends \Exception
 {
-    const CODE = 500;
+    public const CODE = 500;
 
-    public function __construct($message, $code = self::CODE, ?\Throwable $previous = null)
+    public function __construct(string $message, int $code = self::CODE, ?\Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
