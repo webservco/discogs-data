@@ -77,6 +77,9 @@ final class Parser
         $this->logger->debug(__METHOD__);
         $this->logger->debug(\sprintf('pid: %s', $this->cliRunner->getPid())); // cli pid
 
+        if (!\is_callable($this->startCallable)) {
+            throw new DataParserException('Start method not found');
+        }
         \call_user_func_array($this->startCallable, []); // dataProcessor->start
         while ($this->xmlReader->read()) {
             if (!$this->cliRunner->isRunning()) { // cli check
@@ -92,6 +95,10 @@ final class Parser
             // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
             ++$this->xmlItemCount;
             $args = [$this->xmlReader->expand()];
+
+            if (!\is_callable($this->itemCallable)) {
+                throw new DataParserException('Process item method not found');
+            }
             $result = \call_user_func_array($this->itemCallable, $args); // dataProcessor->processItem
             if ($result) {
                 // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
@@ -100,6 +107,10 @@ final class Parser
             $this->xmlReader->next();
         }
         $this->xmlReader->close();
+
+        if (!\is_callable($this->finishCallable)) {
+            throw new DataParserException('Finish method not found');
+        }
         \call_user_func_array($this->finishCallable, []); // dataProcessor->finish
 
         $this->cliRunner->finish(); // cli finish
