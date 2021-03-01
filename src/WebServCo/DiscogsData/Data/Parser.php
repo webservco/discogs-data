@@ -83,15 +83,18 @@ final class Parser
                 $this->logger->debug('Interrupt detected, stopping');
                 break;
             }
+            // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
             ++$this->xmlNodeCount;
             if (\XMLReader::ELEMENT !== $this->xmlReader->nodeType || $this->xmlReader->name !== $this->dataType) {
                 continue;
             }
 
+            // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
             ++$this->xmlItemCount;
             $args = [$this->xmlReader->expand()];
             $result = \call_user_func_array($this->itemCallable, $args); // dataProcessor->processItem
             if ($result) {
+                // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
                 ++$this->xmlProcessedCount;
             }
             $this->xmlReader->next();

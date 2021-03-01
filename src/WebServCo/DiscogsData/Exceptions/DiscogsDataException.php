@@ -13,7 +13,7 @@ class DiscogsDataException extends \Exception
         parent::__construct($message, $code, $previous);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return \sprintf("%s: [%s]: %s\n", self::class, $this->code, $this->message);
     }

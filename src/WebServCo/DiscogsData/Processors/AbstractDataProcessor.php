@@ -51,6 +51,7 @@ abstract class AbstractDataProcessor
 
     public function processItem(\DOMElement $domElement): bool
     {
+        // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
         ++$this->totalItems;
 
         $outputCheck = $this->totalItems % 1000;
@@ -78,6 +79,7 @@ abstract class AbstractDataProcessor
 
     public function start(): void
     {
+        // No content.
     }
 
     /**

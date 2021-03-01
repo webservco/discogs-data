@@ -10,6 +10,7 @@ final class Counter extends AbstractProcessor implements
     /*
     * Called by the parent method processItem
     */
+    // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
     protected function processItemCustom(\DOMElement $domElement): bool
     {
         return true;
