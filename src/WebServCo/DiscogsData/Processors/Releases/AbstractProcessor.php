@@ -6,5 +6,5 @@ namespace WebServCo\DiscogsData\Processors\Releases;
 
 abstract class AbstractProcessor extends \WebServCo\DiscogsData\Processors\AbstractDataProcessor
 {
-    protected const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::RELEASE;
+    public const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::RELEASE;
 }

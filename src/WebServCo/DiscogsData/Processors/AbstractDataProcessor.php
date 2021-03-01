@@ -11,7 +11,7 @@ use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor
 {
-    protected const DATA_TYPE = '';
+    public const DATA_TYPE = '';
 
     protected LoggerInterface $logger;
     protected string $outputDirectory;
@@ -105,7 +105,7 @@ abstract class AbstractDataProcessor
         return \md5($domElement->nodeValue);
     }
 
-    protected function saveXml(int $id, \DOMElement $domElement): bool
+    protected function saveXml(string $id, \DOMElement $domElement): bool
     {
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
             \sprintf('%s.xml', $id),
@@ -124,6 +124,6 @@ abstract class AbstractDataProcessor
         $element = $domDocument->importNode($domElement, true);
         $domDocument->appendChild($element);
         $simpleXMLElement = \simplexml_import_dom($domDocument); // SimpleXMLElement
-        return \json_encode($simpleXMLElement);
+        return (string) \json_encode($simpleXMLElement);
     }
 }

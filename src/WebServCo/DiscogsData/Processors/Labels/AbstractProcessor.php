@@ -6,5 +6,5 @@ namespace WebServCo\DiscogsData\Processors\Labels;
 
 abstract class AbstractProcessor extends \WebServCo\DiscogsData\Processors\AbstractDataProcessor
 {
-    protected const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::LABEL;
+    public const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::LABEL;
 }
