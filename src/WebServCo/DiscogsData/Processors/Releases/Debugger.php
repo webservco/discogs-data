@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsData\Processors\Releases;
 
 final class Debugger extends AbstractProcessor implements
@@ -6,10 +9,8 @@ final class Debugger extends AbstractProcessor implements
 {
     /*
     * Called by the parent method processItem
-    * @param \DOMElement $domElement
-    * @return bool
     */
-    protected function processItemCustom(\DOMElement $domElement)
+    protected function processItemCustom(\DOMElement $domElement): bool
     {
         $id = $this->getDomElementId($domElement);
         return $this->saveXml($id, $domElement);

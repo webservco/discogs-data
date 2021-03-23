@@ -1,61 +1,65 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsData\Processors;
 
 use WebServCo\DiscogsData\Data\Attributes;
+use WebServCo\Framework\Cli\Progress\Line;
+use WebServCo\Framework\Interfaces\LoggerInterface;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
 abstract class AbstractDataProcessor
 {
-    const DATA_TYPE = null;
+    public const DATA_TYPE = '';
 
-    protected $logger;
-    protected $outputDirectory;
-    protected $progressLine;
-    protected $totalItems;
+    protected LoggerInterface $logger;
+    protected string $outputDirectory;
+    protected Line $progressLine;
+    protected int $totalItems;
 
-    abstract protected function processItemCustom(\DOMElement $domElement);
+    abstract protected function processItemCustom(\DOMElement $domElement): bool;
 
-    public function __construct(\WebServCo\Framework\Interfaces\LoggerInterface $logger, $outputDirectory)
+    public function __construct(LoggerInterface $logger, string $outputDirectory)
     {
         $this->logger = $logger;
         $this->outputDirectory = $outputDirectory;
 
         if ($this->logger instanceof OutputLoggerInterface) {
-            $this->progressLine = new \WebServCo\Framework\Cli\Progress\Line();
+            $this->progressLine = new Line();
             $this->progressLine->setShowResult(false);
         }
 
         $this->totalItems = 0;
     }
 
-    public function finish()
+    public function finish(): void
     {
-        if ($this->logger instanceof OutputLoggerInterface) {
-            $this->logger->output(
-                $this->progressLine->finish() //pl finish
-            );
+        if (!($this->logger instanceof OutputLoggerInterface)) {
+            return;
         }
+
+        $this->logger->output(
+            $this->progressLine->finish(), //pl finish
+        );
     }
 
-    public function getDataType()
+    public function getDataType(): string
     {
-        return static::DATA_TYPE; //using a metohd because we are implementing an interface
+        return self::DATA_TYPE; //using a method because we are implementing an interface
     }
 
-    /*
-    * @param \DOMElement $domElement
-    * @return bool
-    */
-    public function processItem(\DOMElement $domElement)
+    public function processItem(\DOMElement $domElement): bool
     {
-        ++ $this->totalItems;
+        // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
+        ++$this->totalItems;
 
-        $outputCheck = $this->totalItems%1000;
+        $outputCheck = $this->totalItems % 1000;
         if (empty($outputCheck)) { // output every 1000 items
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
-                    $this->progressLine->prefix(sprintf('Processing item %s', $this->totalItems)), // pl prefix
-                    false // eol
+                    $this->progressLine->prefix(\sprintf('Processing item %s', $this->totalItems)), // pl prefix
+                    false, // eol
                 );
             }
         }
@@ -66,15 +70,16 @@ abstract class AbstractDataProcessor
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
                     $this->progressLine->suffix($result),
-                    false // eol
+                    false, // eol
                 ); // pl suffix
             }
         }
         return $result;
     }
 
-    public function start()
+    public function start(): void
     {
+        // No content.
     }
 
     /**
@@ -83,7 +88,7 @@ abstract class AbstractDataProcessor
      * Releases and masters have also an attibute named "id", that is checked first.
      * Defaults to an md5 hash of the content.
      */
-    protected function getDomElementId(\DOMElement $domElement)
+    protected function getDomElementId(\DOMElement $domElement): string
     {
         // check for attribute
         if ($domElement->hasAttribute(Attributes::ID)) {
@@ -97,35 +102,28 @@ abstract class AbstractDataProcessor
             }
         }
         // default to md5 hash
-        return md5($domElement->nodeValue);
+        return \md5($domElement->nodeValue);
     }
 
-    protected function saveXml($id, \DOMElement $domElement)
+    protected function saveXml(string $id, \DOMElement $domElement): bool
     {
         $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            sprintf('%s.xml', $id),
+            \sprintf('%s.xml', $id),
             $domElement,
-            true
+            true,
         );
-        $result = file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
-        return $result !== false;
+        $result = \file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
+        return false !== $result;
     }
 
-    protected function toJson(\DOMElement $domElement)
+    protected function toJson(\DOMElement $domElement): string
     {
-        $domDocument = new \DOMDocument;
+        $domDocument = new \DOMDocument();
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
         $element = $domDocument->importNode($domElement, true);
         $domDocument->appendChild($element);
-        $simpleXMLElement = simplexml_import_dom($domDocument); // SimpleXMLElement
-        $json = json_encode($simpleXMLElement);
-        /* Reset disabled, seems to cause CPU activity increase
-        $domDocument = null;
-        $element = null;
-        $simpleXMLElement = null;
-        */
-
-        return $json;
+        $simpleXMLElement = \simplexml_import_dom($domDocument); // SimpleXMLElement
+        return (string) \json_encode($simpleXMLElement);
     }
 }

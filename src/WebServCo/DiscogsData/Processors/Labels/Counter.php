@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace WebServCo\DiscogsData\Processors\Labels;
 
 final class Counter extends AbstractProcessor implements
@@ -6,10 +9,9 @@ final class Counter extends AbstractProcessor implements
 {
     /*
     * Called by the parent method processItem
-    * @param \DOMElement $domElement
-    * @return bool
     */
-    protected function processItemCustom(\DOMElement $domElement)
+    // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+    protected function processItemCustom(\DOMElement $domElement): bool
     {
         return true;
     }

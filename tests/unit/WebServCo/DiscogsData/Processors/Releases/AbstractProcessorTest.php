@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Tests\DiscogsData\Processors\Releases;
 
 use PHPUnit\Framework\TestCase;
@@ -9,7 +12,7 @@ final class AbstractProcessorTest extends TestCase
     /**
      * @test
      */
-    public function constantDataTypeHasExpectedValue()
+    public function constantDataTypeHasExpectedValue(): void
     {
         $this->assertEquals(\WebServCo\DiscogsData\Data\Types::RELEASE, AbstractProcessor::DATA_TYPE);
     }
