@@ -62,4 +62,8 @@ composer install
 * [2020](/docs/Statistics/2020.md)
 * [2021](/docs/Statistics/2021.md)
 
+### Other
+
+* [Discogs Data Entity Types](/docs/Data/EntityTypes.md)
+
 ---
