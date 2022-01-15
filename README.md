@@ -61,6 +61,7 @@ composer install
 * [2019](/docs/Statistics/2019.md)
 * [2020](/docs/Statistics/2020.md)
 * [2021](/docs/Statistics/2021.md)
+* [2022](/docs/Statistics/2022.md)
 
 ### Other
 
