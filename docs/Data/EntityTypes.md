@@ -38,3 +38,7 @@ Total: 32 records.
 | 38 | Manufactured For |
 | 39 | Recorded By |
 | 42 | Exclusive Retailer |
+
+---
+
+[README](../../README.md)
