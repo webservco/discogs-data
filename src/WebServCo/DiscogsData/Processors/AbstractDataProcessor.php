@@ -99,11 +99,11 @@ abstract class AbstractDataProcessor
         $nodes = $domElement->getElementsByTagName(\WebServCo\DiscogsData\Data\Tags::ID);
         if ($nodes->length) {
             if ($nodes->item(0) instanceof \DOMNode) {
-                return $nodes->item(0)->nodeValue;
+                return (string) $nodes->item(0)->nodeValue;
             }
         }
         // default to md5 hash
-        return \md5($domElement->nodeValue);
+        return \md5((string) $domElement->nodeValue);
     }
 
     protected function saveXml(string $id, \DOMElement $domElement): bool
