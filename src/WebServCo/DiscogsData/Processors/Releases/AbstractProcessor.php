@@ -9,5 +9,5 @@ use WebServCo\DiscogsData\Processors\AbstractDataProcessor;
 
 abstract class AbstractProcessor extends AbstractDataProcessor
 {
-    public const DATA_TYPE = Types::RELEASE;
+    public const string DATA_TYPE = Types::RELEASE;
 }
