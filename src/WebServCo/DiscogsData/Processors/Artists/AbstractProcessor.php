@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsData\Processors\Artists;
 
-abstract class AbstractProcessor extends \WebServCo\DiscogsData\Processors\AbstractDataProcessor
+use WebServCo\DiscogsData\Data\Types;
+use WebServCo\DiscogsData\Processors\AbstractDataProcessor;
+
+abstract class AbstractProcessor extends AbstractDataProcessor
 {
-    public const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::ARTIST;
+    public const DATA_TYPE = Types::ARTIST;
 }

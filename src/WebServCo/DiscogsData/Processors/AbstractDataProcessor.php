@@ -4,27 +4,33 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsData\Processors;
 
+use DOMDocument;
+use DOMElement;
+use DOMNode;
 use WebServCo\DiscogsData\Data\Attributes;
+use WebServCo\DiscogsData\Data\Tags;
 use WebServCo\Framework\Cli\Progress\Line;
+use WebServCo\Framework\Files\XmlFileFromDomElement;
 use WebServCo\Framework\Interfaces\LoggerInterface;
 use WebServCo\Framework\Interfaces\OutputLoggerInterface;
 
+use function file_put_contents;
+use function json_encode;
+use function md5;
+use function simplexml_import_dom;
+use function sprintf;
+
 abstract class AbstractDataProcessor
 {
-    public const DATA_TYPE = '';
+    public const string DATA_TYPE = '';
 
-    protected LoggerInterface $logger;
-    protected string $outputDirectory;
     protected Line $progressLine;
     protected int $totalItems;
 
-    abstract protected function processItemCustom(\DOMElement $domElement): bool;
+    abstract protected function processItemCustom(DOMElement $domElement): bool;
 
-    public function __construct(LoggerInterface $logger, string $outputDirectory)
+    public function __construct(protected LoggerInterface $logger, protected string $outputDirectory)
     {
-        $this->logger = $logger;
-        $this->outputDirectory = $outputDirectory;
-
         if ($this->logger instanceof OutputLoggerInterface) {
             $this->progressLine = new Line();
             $this->progressLine->setShowResult(false);
@@ -40,41 +46,50 @@ abstract class AbstractDataProcessor
         }
 
         $this->logger->output(
-            $this->progressLine->finish(), //pl finish
+            //pl finish
+            $this->progressLine->finish(),
         );
     }
 
     public function getDataType(): string
     {
         // phpcs:ignore SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant
-        return static::DATA_TYPE; //using a method because we are implementing an interface
+        //using a method because we are implementing an interface
+        return self::DATA_TYPE;
     }
 
-    public function processItem(\DOMElement $domElement): bool
+    public function processItem(DOMElement $domElement): bool
     {
         // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
         ++$this->totalItems;
 
         $outputCheck = $this->totalItems % 1000;
-        if (empty($outputCheck)) { // output every 1000 items
+        // output every 1000 items
+        if (empty($outputCheck)) {
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
-                    $this->progressLine->prefix(\sprintf('Processing item %s', $this->totalItems)), // pl prefix
-                    false, // eol
+                    // pl prefix
+                    $this->progressLine->prefix(sprintf('Processing item %s', $this->totalItems)),
+                    // eol
+                    false,
                 );
             }
         }
 
         $result = $this->processItemCustom($domElement);
 
-        if (empty($outputCheck)) { // output every 1000 items
+        // output every 1000 items
+        if (empty($outputCheck)) {
             if ($this->logger instanceof OutputLoggerInterface) {
                 $this->logger->output(
                     $this->progressLine->suffix($result),
-                    false, // eol
-                ); // pl suffix
+                    // eol
+                    false,
+                    // pl suffix
+                );
             }
         }
+
         return $result;
     }
 
@@ -89,42 +104,46 @@ abstract class AbstractDataProcessor
      * Releases and masters have also an attibute named "id", that is checked first.
      * Defaults to an md5 hash of the content.
      */
-    protected function getDomElementId(\DOMElement $domElement): string
+    protected function getDomElementId(DOMElement $domElement): string
     {
         // check for attribute
         if ($domElement->hasAttribute(Attributes::ID)) {
             return $domElement->getAttribute(Attributes::ID);
         }
         // check for tag
-        $nodes = $domElement->getElementsByTagName(\WebServCo\DiscogsData\Data\Tags::ID);
+        $nodes = $domElement->getElementsByTagName(Tags::ID);
         if ($nodes->length) {
-            if ($nodes->item(0) instanceof \DOMNode) {
+            if ($nodes->item(0) instanceof DOMNode) {
                 return (string) $nodes->item(0)->nodeValue;
             }
         }
+
         // default to md5 hash
-        return \md5((string) $domElement->nodeValue);
+        return md5((string) $domElement->nodeValue);
     }
 
-    protected function saveXml(string $id, \DOMElement $domElement): bool
+    protected function saveXml(string $id, DOMElement $domElement): bool
     {
-        $xml = new \WebServCo\Framework\Files\XmlFileFromDomElement(
-            \sprintf('%s.xml', $id),
+        $xml = new XmlFileFromDomElement(
+            sprintf('%s.xml', $id),
             $domElement,
             true,
         );
-        $result = \file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
-        return false !== $result;
+        $result = file_put_contents($this->outputDirectory . $xml->getFileName(), $xml->getFileData());
+
+        return $result !== false;
     }
 
-    protected function toJson(\DOMElement $domElement): string
+    protected function toJson(DOMElement $domElement): string
     {
-        $domDocument = new \DOMDocument();
+        $domDocument = new DOMDocument();
         $domDocument->preserveWhiteSpace = false;
         $domDocument->formatOutput = true;
         $element = $domDocument->importNode($domElement, true);
         $domDocument->appendChild($element);
-        $simpleXMLElement = \simplexml_import_dom($domDocument); // SimpleXMLElement
-        return (string) \json_encode($simpleXMLElement);
+        // SimpleXMLElement
+        $simpleXMLElement = simplexml_import_dom($domDocument);
+
+        return (string) json_encode($simpleXMLElement);
     }
 }

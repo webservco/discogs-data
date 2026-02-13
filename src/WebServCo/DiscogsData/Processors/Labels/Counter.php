@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsData\Processors\Labels;
 
+use DOMElement;
+use WebServCo\DiscogsData\Interfaces\DataProcessorInterface;
+
 final class Counter extends AbstractProcessor implements
-    \WebServCo\DiscogsData\Interfaces\DataProcessorInterface
+    DataProcessorInterface
 {
     /*
     * Called by the parent method processItem
     */
     // phpcs:ignore SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
-    protected function processItemCustom(\DOMElement $domElement): bool
+    protected function processItemCustom(DOMElement $domElement): bool
     {
         return true;
     }

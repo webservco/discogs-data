@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace WebServCo\DiscogsData\Processors\Releases;
 
-abstract class AbstractProcessor extends \WebServCo\DiscogsData\Processors\AbstractDataProcessor
+use WebServCo\DiscogsData\Data\Types;
+use WebServCo\DiscogsData\Processors\AbstractDataProcessor;
+
+abstract class AbstractProcessor extends AbstractDataProcessor
 {
-    public const DATA_TYPE = \WebServCo\DiscogsData\Data\Types::RELEASE;
+    public const DATA_TYPE = Types::RELEASE;
 }

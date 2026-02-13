@@ -6,5 +6,5 @@ namespace WebServCo\DiscogsData\Data;
 
 final class Attributes
 {
-    public const ID = 'id';
+    public const string ID = 'id';
 }

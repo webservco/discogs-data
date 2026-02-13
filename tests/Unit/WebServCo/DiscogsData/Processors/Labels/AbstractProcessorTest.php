@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\WebServCo\DiscogsData\Processors\Labels;
 
 use PHPUnit\Framework\TestCase;
+use WebServCo\DiscogsData\Data\Types;
 use WebServCo\DiscogsData\Processors\Labels\AbstractProcessor;
 
 final class AbstractProcessorTest extends TestCase
@@ -14,6 +15,6 @@ final class AbstractProcessorTest extends TestCase
      */
     public function constantDataTypeHasExpectedValue(): void
     {
-        $this->assertEquals(\WebServCo\DiscogsData\Data\Types::LABEL, AbstractProcessor::DATA_TYPE);
+        $this->assertEquals(Types::LABEL, AbstractProcessor::DATA_TYPE);
     }
 }

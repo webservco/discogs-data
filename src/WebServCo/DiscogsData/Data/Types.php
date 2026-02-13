@@ -6,8 +6,8 @@ namespace WebServCo\DiscogsData\Data;
 
 final class Types
 {
-    public const ARTIST = 'artist';
-    public const LABEL = 'label';
-    public const MASTER = 'master';
-    public const RELEASE = 'release';
+    public const string ARTIST = 'artist';
+    public const string LABEL = 'label';
+    public const string MASTER = 'master';
+    public const string RELEASE = 'release';
 }
