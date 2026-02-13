@@ -9,7 +9,8 @@ use Throwable;
 
 use function sprintf;
 
-final class DiscogsDataException extends Exception
+// @phpcs:ignore SlevomatCodingStandard.Classes.RequireAbstractOrFinal.ClassNeitherAbstractNorFinal
+class DiscogsDataException extends Exception
 {
     public const int CODE = 500;
 
