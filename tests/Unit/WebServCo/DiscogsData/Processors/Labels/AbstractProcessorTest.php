@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\DiscogsData\Processors\Labels;
+namespace Tests\Unit\WebServCo\DiscogsData\Processors\Labels;
 
 use PHPUnit\Framework\TestCase;
 use WebServCo\DiscogsData\Processors\Labels\AbstractProcessor;
