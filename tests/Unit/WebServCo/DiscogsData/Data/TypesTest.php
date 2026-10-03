@@ -4,38 +4,31 @@ declare(strict_types=1);
 
 namespace Tests\Unit\WebServCo\DiscogsData\Data;
 
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use WebServCo\DiscogsData\Data\Types;
 
 final class TypesTest extends TestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function constantArtistHasExpectedValue(): void
     {
         $this->assertEquals('artist', Types::ARTIST);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constantLabelHasExpectedValue(): void
     {
         $this->assertEquals('label', Types::LABEL);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constantMasterHasExpectedValue(): void
     {
         $this->assertEquals('master', Types::MASTER);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function constantReleaseHasExpectedValue(): void
     {
         $this->assertEquals('release', Types::RELEASE);
