@@ -53,9 +53,9 @@ abstract class AbstractDataProcessor
 
     public function getDataType(): string
     {
-        // phpcs:ignore SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant
         //using a method because we are implementing an interface
-        return self::DATA_TYPE;
+        // phpcs:ignore SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants.DisallowedLateStaticBindingForConstant
+        return static::DATA_TYPE;
     }
 
     public function processItem(DOMElement $domElement): bool
