@@ -87,7 +87,8 @@ final class Parser
         }
         // dataProcessor->start
         call_user_func_array($this->startCallable, []);
-        while ($this->xmlReader->read()) {
+        $hasNode = $this->xmlReader->read();
+        while ($hasNode) {
             // cli check
             if (!$this->cliRunner->isRunning()) {
                 $this->logger->debug('Interrupt detected, stopping');
@@ -97,6 +98,8 @@ final class Parser
             // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
             ++$this->xmlNodeCount;
             if ($this->xmlReader->nodeType !== XMLReader::ELEMENT || $this->xmlReader->name !== $this->dataType) {
+                $hasNode = $this->xmlReader->read();
+
                 continue;
             }
 
@@ -113,7 +116,8 @@ final class Parser
                 // phpcs:ignore SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators.DisallowedPreIncrementOperator
                 ++$this->xmlProcessedCount;
             }
-            $this->xmlReader->next();
+            // Skip the item's children. Don't call read() after this, or an item right after it is skipped.
+            $hasNode = $this->xmlReader->next();
         }
         $this->xmlReader->close();
 
