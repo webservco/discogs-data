@@ -1,7 +1,7 @@
 {
     "name" : "webservco/discogs-data",
     "type" : "library",
-    "description" : "Utilities for working with the Discogs monthly data dumps (parse, process, import).",
+    "description" : "A PHP library for webservco/framework. Streams the compressed Discogs monthly data dumps (artists, labels, masters, releases) and passes each XML item to a processor.",
     "keywords" : [
         "webservco",
         "discogs-data"
