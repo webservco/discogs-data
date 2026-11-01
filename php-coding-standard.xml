@@ -88,7 +88,7 @@
 			<!-- SlevomatCodingStandard.Files.TypeNameMatchesFileName -->
 			<property name="rootNamespaces" type="array">
 				<element key="src/WebServCo" value="WebServCo"/>
-				<element key="tests/unit/WebServCo" value="Tests"/>
+				<element key="tests/Unit/WebServCo" value="Tests"/>
 			</property>
 			<!-- "allows using fully qualified classes from global space (i.e. \DateTimeImmutable)". -->
 			<property name="allowFullyQualifiedGlobalClasses" value="true" />
